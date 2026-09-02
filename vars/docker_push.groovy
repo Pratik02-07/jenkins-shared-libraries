@@ -1,7 +1,9 @@
-def call(String project, String imageTag, String dockerHubUser) {
-    // 1. Rename the variable inside usernameVariable to avoid naming conflicts
-    withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerHubPass', usernameVariable: 'credentialUser')]) {
-        sh "docker login -u ${credentialUser} -p ${dockerHubPass}"
-    }
-    sh "docker push ${dockerHubUser}/${project}:${imageTag}"
-  }
+def call(String Project, String ImageTag, String dockerhubuser) {
+    withCredentials([usernamePassword(credentialsId: 'dockerHubCred', passwordVariable: 'dockerHubPass', usernameVariable: 'dockerHubUser')]) {
+        
+        sh "docker login -u ${dockerHubUser} -p ${dockerHubPass}"
+
+        sh "docker push ${dockerhubuser}/${Project}:${ImageTag}"
+        
+    } // 3. Added closing brace to secure the credentials block
+}
