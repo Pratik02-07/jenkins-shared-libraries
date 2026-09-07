@@ -1,7 +1,5 @@
-def call(String sonarInstallation = 'Sonar', String projectKey, String projectName) {
-    stage('SonarQube Analysis') {
-        withSonarQubeEnv(sonarInstallation) {
-            sh "sonar-scanner -Dsonar.projectKey=${projectKey} -Dsonar.projectName=${projectName}"
-        }
-    }
+def call(String SonarQubeAPI, String Projectname, String ProjectKey){
+  withSonarQubeEnv("${SonarQubeAPI}"){
+      sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectName=${Projectname} -Dsonar.projectKey=${ProjectKey} -Dsonar.java.binaries=. -X"
+  }
 }
